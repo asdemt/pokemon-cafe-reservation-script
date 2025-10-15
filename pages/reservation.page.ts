@@ -1,5 +1,9 @@
 import {expect, Locator, Page} from '@playwright/test';
 
+const MONTH_TO_RESERVE = 11;
+const DAY_TO_RESERVE = 15;
+const YEAR_TO_RESERVE = 2025;
+
 type MonthNumber = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
 type GuestsNumber = 1 | 2 | 3 | 4 | 5 | 6
 
@@ -64,17 +68,20 @@ export class ReservationPage {
         while (!isSeatAvailable) {
             await this.selectGuestNumber(2);
             await this.page.waitForTimeout(1000);
-            await this.selectDate(2024, 9, 2);
+            await this.selectDate(YEAR_TO_RESERVE, MONTH_TO_RESERVE, DAY_TO_RESERVE);
             await this.page.waitForTimeout(1000);
             // 空席 (kuseki) means empty seat in japanese
             isSeatAvailable = await this.availableSeat.isVisible({timeout: 1000});
-            // if you uncomment this line you can click on the first available time if you're not picky
-            // await this.availableSeat.click();
+
             if (!isSeatAvailable) {
                 await this.backToPreviousPageButton.click();
                 await this.page.waitForURL('https://reserve.pokemon-cafe.jp/reserve/step1', { timeout: 5000 });
             }
         }
+
+        // if you uncomment this line you can click on the first available time if you're not picky
+        await this.availableSeat.click();
+
         await this.page.pause();
     }
 

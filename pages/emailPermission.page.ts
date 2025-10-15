@@ -11,8 +11,9 @@ export class EmailPermissionPage {
     }
 
     async clickMakeReservation() {
-        await expect(this.goToReservationPageButton).toBeVisible();
+        // Increased timeout to allow for human verification
+        await expect(this.goToReservationPageButton).toBeVisible({ timeout: 30000 });
         await this.goToReservationPageButton.click();
-        await this.page.waitForURL('https://reserve.pokemon-cafe.jp/reserve/step1', { timeout: 5000 });
+        await this.page.waitForURL('https://reserve.pokemon-cafe.jp/reserve/step1', { timeout: 30000 });
     }
 }

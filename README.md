@@ -13,3 +13,7 @@ https://github.com/user-attachments/assets/e9df3c23-1b59-4111-a425-131ce9071bc0
 # Usage
 
 Will make it more useable soon, for now check out the tests folder and edit the variables for your use case.
+
+npm install
+npx playwright install
+npx playwright test
